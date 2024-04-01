@@ -1,5 +1,17 @@
-My sql table details
-registration 
-     id,name,email,password,phonenumber
-cart
-    id, user_id(foreign key of registration table),product_id , quantity
+
+CREATE TABLE registration (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    phonenumber VARCHAR(10) NOT NULL
+);
+
+
+CREATE TABLE cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES registration(id)
+);
