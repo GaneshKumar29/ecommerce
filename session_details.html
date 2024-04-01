@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Session Details</title>
+</head>
+<body>
+    <h1>User Session Details</h1>
+    <div id="session-details">
+        <h2>Active Users:</h2>
+        <ul>
+            {% for user_details in active_user_details %}
+                <li>User ID: {{ user_details.id }}, Email: {{ user_details.email }}, Phone Number: {{ user_details.phonenumber }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+         
+        // Function to get cookie value by name
+        function getCookie(name) {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [cookieName, cookieValue] = cookie.split('=');
+                if (cookieName.trim() === name) {
+                    return decodeURIComponent(cookieValue);
+                }
+            }
+            return null;
+        }
+    
+        // Get user ID and session token from cookies
+        const userId = getCookie('user_id');
+        const sessionToken = getCookie('session_token');
+    
+        // Display session details to the user
+        if (userId && sessionToken) {
+            document.getElementById('session-details').innerText = `User ID: ${userId}, Session Token: ${sessionToken}`;
+        } else {
+            document.getElementById('session-details').innerText = 'User is not logged in.';
+        }
+    
+        function clearCookies() {
+            // Clear user_id and session_token cookies
+            document.cookie = 'user_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+            document.cookie = 'session_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        }
+
+        // Call the clearCookies function when logging out
+        function logout() {
+            // Clear cookies
+            clearCookies();
+            // Redirect to logout route
+            window.location.href = '/logout';
+        }
+    </script>
+    
+    </body>
+</html>
