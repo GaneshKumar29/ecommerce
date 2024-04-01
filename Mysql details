@@ -1,0 +1,5 @@
+My sql table details
+registration 
+     id,name,email,password,phonenumber
+cart
+    id, user_id(foreign key of registration table),product_id , quantity
