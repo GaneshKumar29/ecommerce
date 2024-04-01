@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <p><a href="/logout">logout</a></p>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style_viewcart.css') }}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .quantity-input {
+            width: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+                <th>Action</th>
+                  
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product_name}}</td>
+                <td>{{ item.product_id }}</td>
+                <td>{{item.quantity}}</td>
+                <td>${{ item.product_price }}</td>
+                
+                <td>
+                    <span>${{ item.total_price }}</span>
+
+                <td>
+                    <button onclick="removeFromCart('{{ item.product_id }}')">Remove</button>
+                </td>  
+                
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4">Overall Price:</td>
+                <td>${{ overall_price }}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+</body>
+</html>
